@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Higher or lower game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="hide-overflow">
+    <header>
+        <div class="navbar navbar-expand-sm bg-light">
+            <div class="container-fluid justify-content-between">
+                <a href="index.html" class="navbar-brand">Higher or lower game</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="container justify-content-end me-0 pe-0 collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="play.html">Play</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="feedback.html">Send feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="game">
+        <div class="container-fluid w-100 h-100 text-center">
+            <div class="game-container row align-items-center">
+                <div id="current-car" class="col-6 container-fluid h-100">
+                    <img class="car-image">
+                    <div class="row h-100 align-items-center">
+                        <div class="col">
+                            <h1 class="car-title"></h1>
+                            <p class="car-hp"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100 d-lg-none"></div>
+                <div id="next-car" class="col-6 container-fluid h-100">
+                    <img class="car-image">
+                    <div class="row h-100 align-items-center">
+                        <div class="col">
+                            <h1 class="car-title"></h1>
+                            <button class="btn btn-primary">Higher</button>
+                            <button class="btn btn-secondary">Lower</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
