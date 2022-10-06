@@ -305,6 +305,7 @@ const next = async () => {
     
     setVisibility(scurrent, false);
     setVisibility(snext, false);
+    score++;
 };
 
 const fail = () => {
