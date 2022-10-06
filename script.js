@@ -7,7 +7,7 @@ const db = [
     {
         "name": "Porsche 911 Turbo S 992",
         "hp": 650,
-        "img": "porsche_911_992_turbo_s.jpg"
+        "img": "porsche_911_turbo_s_992.jpg"
     },
     {
         "name": "Lamborghini Aventador SVJ",
@@ -220,8 +220,24 @@ const db = [
 const currentCar = document.querySelector('#current-car');
 const nextCar = document.querySelector('#next-car');
 
+function rand(max) {
+    return Math.floor(Math.random() * max);
+}
+
+let cc, nc;
+
+const getNextCar = () => {
+    const nextIndex = rand(db.length);
+    const cand = db[nextIndex];
+    if (cand === cc || cand === nc)
+        return getNextCar();
+
+    return cand;
+};
+
 let score = 0;
-let cc = db[6], nc = db[22];
+cc = db[rand(db.length)];
+nc = getNextCar();
 
 const update = () => {
     const ci = currentCar.querySelector('.car-image');
@@ -247,29 +263,56 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const showHiddenHp = async () => {
-    const hp = nextCar.querySelector('.car-hp');
-    console.log(hp.dataset);
-    hp.dataset.visible = 'visible';
-    
-    setButtonStates(false);
-    await sleep(1500);
-    setButtonStates(true);
+const setVisibility = (elem, vis) => {
+    if (vis) {
+        elem.dataset.visible = 'visible';
+    } else {
+        delete elem.dataset.visible;
+    }
 };
+
+const showHiddenHp = () => {
+    const hp = nextCar.querySelector('.car-hp');
+    setVisibility(hp, true);
+    
+    return sleep(1500);
+};
+
+const hideHp = () => {
+    const hp = nextCar.querySelector('.car-hp');
+    setVisibility(hp, false);
+}
 
 const setButtonStates = state => {
     const buttons = nextCar.querySelectorAll('.btn');
-    console.log(buttons)
     buttons.forEach(btn => btn.disabled = !state);
 }; 
 
-const next = () => {};
+const next = async () => {
+    const candidate = getNextCar();
+    const pnext = nextCar.querySelector('.primary');
+    const scurrent = currentCar.querySelector('.secondary');
+    const snext = nextCar.querySelector('.secondary');
+    
+    scurrent.src = pnext.src;
+    snext.src = `img/${candidate.img}`;
+    setVisibility(scurrent, true);
+    setVisibility(snext, true);
+    cc = nc;
+    nc = candidate;
+    await sleep(1200);
+    update();
+    
+    setVisibility(scurrent, false);
+    setVisibility(snext, false);
+};
 
 const fail = () => {
     window.location = 'score.html?score=' + score;
 };
 
 const higher = async () => {
+    setButtonStates(false);
     await showHiddenHp();
 
     if (cc.hp > nc.hp) {
@@ -277,10 +320,13 @@ const higher = async () => {
         return;
     }
     
-    next();
+    hideHp();
+    await next();
+    setButtonStates(true);
 };
     
 const lower = async () => {
+    setButtonStates(false);
     await showHiddenHp();
 
     if (cc.hp < nc.hp) {
@@ -288,7 +334,9 @@ const lower = async () => {
         return;
     }
     
-    next();
+    hideHp();
+    await next();
+    setButtonStates(true);
 };
 
 update();
