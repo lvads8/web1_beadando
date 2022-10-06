@@ -220,8 +220,17 @@ const db = [
 const currentCar = document.querySelector('#current-car');
 const nextCar = document.querySelector('#next-car');
 
+let state = Math.floor(Math.random() * 63);
+let start = state;
 function rand(max) {
-    return Math.floor(Math.random() * max);
+    let bit = (state ^ (state >>> 1)) & 1;
+    state = ((state >>> 1) | (bit << 5)) & 63;
+    
+    if (state === start) {
+        state = start = Math.floor(Math.random() * 63);
+    }
+    
+    return state % max;
 }
 
 let cc, nc;
