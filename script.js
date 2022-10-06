@@ -92,7 +92,7 @@ const db = [
     {
         "name": "Ferrari 458 Italia",
         "hp": 570,
-        "img": "ferrari_458.jpg"
+        "img": "ferrari_458_italia.jpg"
     },
     {
         "name": "Ferrari LaFerrari",
