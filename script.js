@@ -220,6 +220,7 @@ const db = [
 const currentCar = document.querySelector('#current-car');
 const nextCar = document.querySelector('#next-car');
 
+let score = 0;
 let cc = db[6], nc = db[22];
 
 const update = () => {
@@ -240,6 +241,54 @@ const update = () => {
         .innerText = cc.hp;
     nextCar.querySelector('.car-hp')
         .innerText = nc.hp;
+};
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const showHiddenHp = async () => {
+    const hp = nextCar.querySelector('.car-hp');
+    console.log(hp.dataset);
+    hp.dataset.visible = 'visible';
+    
+    setButtonStates(false);
+    await sleep(1500);
+    setButtonStates(true);
+};
+
+const setButtonStates = state => {
+    const buttons = nextCar.querySelectorAll('.btn');
+    console.log(buttons)
+    buttons.forEach(btn => btn.disabled = !state);
+}; 
+
+const next = () => {};
+
+const fail = () => {
+    window.location = 'score.html?score=' + score;
+};
+
+const higher = async () => {
+    await showHiddenHp();
+
+    if (cc.hp > nc.hp) {
+        fail();
+        return;
+    }
+    
+    next();
+};
+    
+const lower = async () => {
+    await showHiddenHp();
+
+    if (cc.hp < nc.hp) {
+        fail();
+        return;
+    }
+    
+    next();
 };
 
 update();
