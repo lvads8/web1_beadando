@@ -216,19 +216,27 @@ const db = [
     }
 ];
 
-// Grab all DOM elements first
 const currentCar = document.querySelector('#current-car');
 const nextCar = document.querySelector('#next-car');
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
 let state = Math.floor(Math.random() * 63);
-let start = state;
+const start = state;
+
 function rand(max) {
     let bit = (state ^ (state >>> 1)) & 1;
     state = ((state >>> 1) | (bit << 5)) & 63;
     
-    if (state === start) {
-        state = start = Math.floor(Math.random() * 63);
-    }
+    if (state === start)
+        shuffleArray(db);
     
     return state % max;
 }
