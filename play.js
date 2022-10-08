@@ -218,6 +218,7 @@ const db = [
 
 const currentCar = document.querySelector('#current-car');
 const nextCar = document.querySelector('#next-car');
+const scoreDom = document.querySelector('.score');
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -227,6 +228,8 @@ function shuffleArray(array) {
         array[j] = temp;
     }
 }
+
+shuffleArray(db);
 
 let state = Math.floor(Math.random() * 63);
 const start = state;
@@ -274,6 +277,8 @@ const update = () => {
         .innerText = cc.hp;
     nextCar.querySelector('.car-hp')
         .innerText = nc.hp;
+    
+    scoreDom.innerText = score;
 };
 
 function sleep(ms) {
@@ -318,11 +323,11 @@ const next = async () => {
     cc = nc;
     nc = candidate;
     await sleep(1200);
+    score++;
     update();
     
     setVisibility(scurrent, false);
     setVisibility(snext, false);
-    score++;
 };
 
 const fail = () => {
